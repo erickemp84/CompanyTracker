@@ -8,25 +8,25 @@ using System;
 
 namespace API.Controllers
 {
-    public class CustomerController : BaseApiController 
+    public class JobController : BaseApiController
     {
         private readonly DataContext _context;
 
-        public CustomerController(DataContext context)
+        public JobController(DataContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Customer>>> GetCustomers()
+        public async Task<ActionResult<List<Job>>> GetJobs()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Jobs.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomers(Guid id)
+        public async Task<ActionResult<Job>> GetJobs(Guid id)
         {
-            return await _context.Customers.FindAsync(id);
+            return await _context.Jobs.FindAsync(id);
         }
     }
 }
