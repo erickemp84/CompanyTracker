@@ -11,6 +11,7 @@ namespace Domain
 
         public string Name {get; set;}
 
-        public ICollection<AppUser> AppUser {get; set;}
+        public List<AppUserCrews> AppUserCrews {get; set;}
+
     }
 }
