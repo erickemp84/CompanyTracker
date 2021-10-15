@@ -1,46 +1,36 @@
 import React from 'react';
 import './App.css';
-// import {useState, useEffect} from 'react';
-// import axios from 'axios';
-// import AppUsersTable from './Components/AppUsersTable';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import Button from "@mui/material/Button";
+import Dashboard from './Components/Dashboard';
+import TimecardsTable from './Components/TimecardsTable';
 import JobsTable from './Components/JobsTable';
+import CustomerTable from './Components/CustomerTable';
+import AppUsersTable from './Components/AppUsersTable';
+import BillablesTable from './Components/BillablesTable';
 
 function App() {
-  
-  // const [AppUsers, setAppUsers] = useState([]);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:5000/api/AppUser').then(response => {
-  //     console.log(response)
-  //     setAppUsers(response.data);
-  //   })
-  // }, [])
 
   return (
 
-    // <AppUsersTable />
-    <JobsTable />
-
-    // <>
-    //   <table>
-    //     <th>
-    //       <td>First Name:</td>
-    //       <td>Last Name:</td>
-    //       <td>ID:</td>
-    //     </th>
-    //   </table>
-    //   {AppUsers.map((AppUser: any) => (
-    //     <table>
-    //       <tr>
-    //         <th>
-    //           <td key={AppUser.id}>{AppUser.firstName}</td>
-    //           <td key={AppUser.id}>{AppUser.lastName}</td>
-    //           <td key={AppUser.id}>{AppUser.id}</td>
-    //         </th>
-    //       </tr>
-    //   </table>
-    //   ))}
-    // </>
+    <>
+      <Router>
+        <Link to="/"><Button variant="contained">Dashboard</Button></Link>
+        <Link to="/api/Timecards"><Button variant="contained">Timecards</Button></Link>
+        <Link to="/api/Job"><Button variant="contained">Jobs</Button></Link>
+        <Link to="/api/Customer"><Button variant="contained">Clients</Button></Link>
+        <Link to="/api/AppUser"><Button variant="contained">Employees</Button></Link>
+        <Link to="/api/Billables"><Button variant="contained">Billables</Button></Link>
+        <Switch>
+            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/api/Timecards" component={TimecardsTable} />
+            <Route exact path="/api/Job" component={JobsTable} />
+            <Route exact path="/api/Customer" component={CustomerTable} />
+            <Route exact path="/api/AppUser" component={AppUsersTable} />
+            <Route exact path="/api/Billables" component={BillablesTable} />
+        </Switch>
+      </Router>
+  </>
 
   );
 }
