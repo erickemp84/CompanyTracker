@@ -9,23 +9,23 @@ namespace Persistence
         {
         }
 
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     modelBuilder.Entity<AppUserCrews>()
-        //         .HasOne(a => a.AppUser)
-        //         .WithMany(auc => auc.AppUserCrews)
-        //         .HasForeignKey(ci => ci.AppUserId);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AppUserCrews>()
+                .HasOne(a => a.AppUser)
+                .WithMany(auc => auc.AppUserCrews)
+                .HasForeignKey(ci => ci.AppUserId);
 
-        //     modelBuilder.Entity<AppUserCrews>()
-        //         .HasOne(c => c.Crews )
-        //         .WithMany(auc => auc.AppUserCrews)
-        //         .HasForeignKey(ci => ci.CrewsId);
+            modelBuilder.Entity<AppUserCrews>()
+                .HasOne(c => c.Crews )
+                .WithMany(auc => auc.AppUserCrews)
+                .HasForeignKey(ci => ci.CrewsId);
 
-        //     modelBuilder.Entity<AppUserCrews>()
-        //         .HasMany(c => c.AppUsers)
-        //         .WithMany(a => a.Crews)
-        //         .UsingEntity(j => j.ToTable("AppUserCrews"));
-        // }
+            modelBuilder.Entity<AppUserCrews>()
+                .HasMany(c => c.AppUsers)
+                .WithMany(a => a.Crews)
+                .UsingEntity(j => j.ToTable("AppUserCrews"));
+        }
 
         public DbSet<AppUser> AppUsers {get; set;}
         public DbSet<Billables> Billables {get; set;}
