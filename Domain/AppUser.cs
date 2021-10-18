@@ -15,6 +15,6 @@ namespace Domain
 
         public string Email {get; set;}
 
-        public List<AppUserCrews> AppUserCrews {get; set;}
+        public IList<AppUserCrews> AppUserCrews {get; set;}
     }
 }

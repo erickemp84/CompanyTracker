@@ -8,8 +8,6 @@ namespace Domain
 
     public class AppUserCrews
     {
-        public Guid Id {get; set;}
-
         public Guid AppUserId {get; set;}
         public AppUser AppUser {get; set;}
 

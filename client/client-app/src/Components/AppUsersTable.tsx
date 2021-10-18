@@ -27,7 +27,8 @@ export default function BasicTable() {
                     <TableRow>
                         <TableCell>First Name</TableCell>
                         <TableCell align="right">Last Name</TableCell>
-                        <TableCell align="right">ID</TableCell>
+                        <TableCell align="right">Email</TableCell>
+                        <TableCell align="right">Crew</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -40,7 +41,8 @@ export default function BasicTable() {
                                 {AppUser.firstName}
                             </TableCell>
                             <TableCell align="right">{AppUser.lastName}</TableCell>
-                            <TableCell align="right">{AppUser.id}</TableCell>
+                            <TableCell align="right">{AppUser.email}</TableCell>
+                            <TableCell align="right">{AppUser.crew}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

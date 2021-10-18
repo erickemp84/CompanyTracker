@@ -5,26 +5,24 @@ namespace Persistence
 {
     public class DataContext : DbContext 
     {
+
         public DataContext(DbContextOptions options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AppUserCrews>()
-                .HasOne(a => a.AppUser)
-                .WithMany(auc => auc.AppUserCrews)
-                .HasForeignKey(ci => ci.AppUserId);
+            modelBuilder.Entity<AppUserCrews>().HasKey(a => new {a.AppUserId, a.CrewsId});
 
             modelBuilder.Entity<AppUserCrews>()
-                .HasOne(c => c.Crews )
-                .WithMany(auc => auc.AppUserCrews)
-                .HasForeignKey(ci => ci.CrewsId);
+                .HasOne<AppUser>(a => a.AppUser)
+                .WithMany(a => a.AppUserCrews)
+                .HasForeignKey(a => a.AppUserId);
 
             modelBuilder.Entity<AppUserCrews>()
-                .HasMany(c => c.AppUsers)
-                .WithMany(a => a.Crews)
-                .UsingEntity(j => j.ToTable("AppUserCrews"));
+                .HasOne<Crews>(a => a.Crews)
+                .WithMany(a => a.AppUserCrews)
+                .HasForeignKey(a => a.CrewsId);
         }
 
         public DbSet<AppUser> AppUsers {get; set;}
