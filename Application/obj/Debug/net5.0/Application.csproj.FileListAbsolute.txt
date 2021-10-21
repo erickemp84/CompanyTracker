@@ -15,3 +15,6 @@ C:\Users\airfo\Desktop\CompanyTracker\Application\obj\Debug\net5.0\Application.c
 C:\Users\airfo\Desktop\CompanyTracker\Application\obj\Debug\net5.0\Application.dll
 C:\Users\airfo\Desktop\CompanyTracker\Application\obj\Debug\net5.0\ref\Application.dll
 C:\Users\airfo\Desktop\CompanyTracker\Application\obj\Debug\net5.0\Application.pdb
+C:\Users\airfo\Desktop\CompanyTracker\Application\bin\Debug\net5.0\Application.runtimeconfig.json
+C:\Users\airfo\Desktop\CompanyTracker\Application\bin\Debug\net5.0\Application.runtimeconfig.dev.json
+C:\Users\airfo\Desktop\CompanyTracker\Application\obj\Debug\net5.0\Application.genruntimeconfig.cache

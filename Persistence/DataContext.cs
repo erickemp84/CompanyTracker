@@ -3,7 +3,7 @@ using Domain;
 
 namespace Persistence
 {
-    public class DataContext : IdentityDbContext<AppUserCrew>
+    public class DataContext : DbContext
     {
 
         public DataContext(DbContextOptions options) : base(options)
@@ -16,22 +16,22 @@ namespace Persistence
         public DbSet<Customer> Customers {get; set;}
         public DbSet<Job> Jobs {get; set;}
         public DbSet<Punch> Punches {get; set;}
-        public Dbset<AppUserCrews> AppUserCrews {get; set;}
+        public DbSet<AppUserCrews> AppUserCrews {get; set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<AppUserCrew>(x => x.HasKey(ac => new {ac.AppUserId, ac.CrewsId}));
+            builder.Entity<AppUserCrews>(x => x.HasKey(ac => new {ac.AppUserId, ac.CrewsId}));
 
-            builder.Entity<AppUserCrew>()
+            builder.Entity<AppUserCrews>()
                 .HasOne(u => u.AppUser)
                 .WithMany(c => c.Crews)
                 .HasForeignKey(ac => ac.AppUserId);
 
             builder.Entity<AppUserCrews>()
-                .Hasone(u => u.Crews)
-                .WithMany(c => c.Appusers)
+                .HasOne(u => u.Crews)
+                .WithMany(c => c.AppUsers)
                 .HasForeignKey(ac => ac.CrewsId);
         }
 
