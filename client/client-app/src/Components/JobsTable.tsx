@@ -21,7 +21,7 @@ export default function BasicTable() {
     }, [])
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{width: 800}}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
