@@ -1,31 +1,32 @@
-using Persistence;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
+using Application.AppUsers;
 
 namespace API.Controllers
 {
     public class AppUserController : BaseApiController
     {
-        private readonly DataContext _context;
-        public AppUserController(DataContext context)
-        {
-            _context = context;
-        }
 
         [HttpGet]
-        public async Task<ActionResult<List<AppUser>>> GetAppUsers()
+        public async Task<ActionResult<List<AppUser>>> GetAppUser()
         {
-            return await _context.AppUsers.ToListAsync();
+            return await Mediator.Send(new List.Query());
         }
 
-        [HttpGet("{id}")] 
-        public async Task<ActionResult<AppUser>> GetAppUsers(Guid id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AppUser>> GetAppUser(Guid id)
         {
-            return await _context.AppUsers.FindAsync(id);
+            return await Mediator.Send(new Details.Query{Id = id});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAppUser(AppUser appUser)
+        {
+            return Ok(await Mediator.Send(new Create.Command {AppUser = appUser}));
         }
     }
 }
+
