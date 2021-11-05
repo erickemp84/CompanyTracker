@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Persistence;
+using AutoMapper;
 
 namespace Application.AppUsers
 {
-    public class Create
+    public class Edit
     {
         public class Command : IRequest
         {
@@ -15,15 +16,20 @@ namespace Application.AppUsers
 
         public class Handler : IRequestHandler<Command>
         {
-            public readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly DataContext _context;
+            private readonly IMapper _mapper;
+
+            public Handler(DataContext context, IMapper mapper)
             {
+                _mapper = mapper;
                 _context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.AppUsers.Add(request.AppUser);
+                var appUser = await _context.AppUsers.FindAsync(request.AppUser.Id);
+
+                _mapper.Map(request.AppUser, appUser);
 
                 await _context.SaveChangesAsync();
 

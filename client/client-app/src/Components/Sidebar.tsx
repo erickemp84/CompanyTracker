@@ -9,11 +9,10 @@ import {BrowserRouter as Router, Link} from 'react-router-dom';
 const Sidebar = () => {
 
     return(
-    <Router>
         <Box className="sidebar-container" sx={{display: 'flex'}}>
             <Box className="sidebar" sx={{display: 'flex', flex: 1, flexDirection: 'column', height: '100vh', width: 200, background: '#214D4D', color: 'white'}}>
+                <Router>
                     <List>
-                        
                         <Link to="/" style={{textDecoration: 'none', color: 'white'}}>
                         <ListItem disablePadding>
                             <ListItemButton href="/">
@@ -61,11 +60,10 @@ const Sidebar = () => {
                             </ListItemButton>
                         </ListItem>
                         </Link>
-
                     </List>
+                </Router>
             </Box>
         </Box>
-    </Router>
 
     );
 

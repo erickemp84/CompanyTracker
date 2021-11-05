@@ -1,21 +1,24 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Persistence;
+using AutoMapper;
 
 namespace Application.AppUsers
 {
-    public class Create
+    public class Delete
     {
         public class Command : IRequest
         {
-            public AppUser AppUser {get; set;}
+            public Guid Id {get; set;}
         }
 
         public class Handler : IRequestHandler<Command>
         {
-            public readonly DataContext _context;
+            private readonly DataContext _context;
+
             public Handler(DataContext context)
             {
                 _context = context;
@@ -23,7 +26,9 @@ namespace Application.AppUsers
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.AppUsers.Add(request.AppUser);
+                var appUser = await _context.AppUsers.FindAsync(request.Id);
+
+                _context.Remove(appUser);
 
                 await _context.SaveChangesAsync();
 

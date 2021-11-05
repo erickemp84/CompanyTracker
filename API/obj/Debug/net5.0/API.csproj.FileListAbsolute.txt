@@ -70,3 +70,5 @@ C:\Users\airfo\Desktop\CompanyTracker\API\bin\Debug\net5.0\MediatR.dll
 C:\Users\airfo\Desktop\CompanyTracker\API\bin\Debug\net5.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\airfo\Desktop\CompanyTracker\API\bin\Debug\net5.0\MediatR.CQRS.dll
 C:\Users\airfo\Desktop\CompanyTracker\API\bin\Debug\net5.0\System.ComponentModel.Composition.dll
+C:\Users\airfo\Desktop\CompanyTracker\API\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\airfo\Desktop\CompanyTracker\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -4,12 +4,13 @@ using Domain;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Application.AppUsers;
+using MediatR;
 
 namespace API.Controllers
 {
     public class AppUserController : BaseApiController
     {
-
+    
         [HttpGet]
         public async Task<ActionResult<List<AppUser>>> GetAppUser()
         {
@@ -26,6 +27,19 @@ namespace API.Controllers
         public async Task<IActionResult> CreateAppUser(AppUser appUser)
         {
             return Ok(await Mediator.Send(new Create.Command {AppUser = appUser}));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditActivity(Guid id, AppUser appUser)
+        {
+            appUser.Id = id;
+            return Ok(await Mediator.Send(new Edit.Command{AppUser = appUser}));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteActivity(Guid id)
+        {
+            return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
     }
 }
