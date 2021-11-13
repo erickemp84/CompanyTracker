@@ -5,28 +5,31 @@ using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using MediatR;
+using Application.CustomersCRUD;
 
 namespace API.Controllers
 {
     public class CustomerController : BaseApiController 
     {
-        private readonly DataContext _context;
-
-        public CustomerController(DataContext context)
-        {
-            _context = context;
-        }
 
         [HttpGet]
         public async Task<ActionResult<List<Customer>>> GetCustomers()
         {
-            return await _context.Customers.ToListAsync();
+            return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomers(Guid id)
         {
-            return await _context.Customers.FindAsync(id);
+            return await Mediator.Send(new Details.Query{Id = id});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer(Customer customer)
+        {
+            return Ok(await Mediator.Send(new Create.Command {Customer = customer}));
+        }
+
     }
 }

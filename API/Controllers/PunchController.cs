@@ -5,27 +5,31 @@ using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using MediatR;
+using Application.PunchesCRUD;
 
 namespace API.Controllers
 {
     public class PunchController : BaseApiController
     {
-        private readonly DataContext _context;
-        public PunchController(DataContext context)
-        {
-            _context = context;
-        }
 
         [HttpGet]
         public async Task<ActionResult<List<Punch>>> GetPunches()
         {
-            return await _context.Punches.ToListAsync();
+            return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")] 
         public async Task<ActionResult<Punch>> GetPunch(Guid id)
         {
-            return await _context.Punches.FindAsync(id);
+            return await Mediator.Send(new Details.Query{Id = id});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePunch (Punch punch)
+        {
+            return Ok(await Mediator.Send(new Create.Command {Punch = punch}));
+        }
+        
     }
 }

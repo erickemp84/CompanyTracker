@@ -4,18 +4,18 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.AppUsers
+namespace Application.CustomersCRUD
 {
     public class Create
     {
         public class Command : IRequest
         {
-            public AppUser AppUser {get; set;}
+            public Customer Customer {get; set;}
         }
 
         public class Handler : IRequestHandler<Command>
         {
-            public readonly DataContext _context;
+            public DataContext _context;
             
             public Handler(DataContext context)
             {
@@ -24,7 +24,7 @@ namespace Application.AppUsers
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.AppUsers.Add(request.AppUser);
+                _context.Customers.Add(request.Customer);
 
                 await _context.SaveChangesAsync();
 

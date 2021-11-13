@@ -5,28 +5,27 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.AppUsers
+namespace Application.CustomersCRUD
 {
     public class Details
     {
-        public class Query : IRequest<AppUser>
+        public class Query : IRequest<Customer>
         {
             public Guid Id {get; set;}
         }
 
-        public class Handler : IRequestHandler<Query, AppUser>
+        public class Handler : IRequestHandler<Query, Customer>
         {
-
             public DataContext _context;
-            
+
             public Handler(DataContext context)
             {
-                _context = context; 
+                _context = context;
             }
 
-            public async Task<AppUser> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Customer> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.AppUsers.FindAsync(request.Id);
+                return await _context.Customers.FindAsync(request.Id);
             }
         }
     }
