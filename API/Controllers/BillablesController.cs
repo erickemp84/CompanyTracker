@@ -31,5 +31,15 @@ namespace API.Controllers
             return Ok(await Mediator.Send(new Create.Command {Billables = billables}));
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditBillable(Guid id, Billables billables)
+        {
+            billables.Id = id;
+            return Ok(await Mediator.Send(new Edit.Command{Billables = billables}));
+        }
+
+
+
+
     }
 }

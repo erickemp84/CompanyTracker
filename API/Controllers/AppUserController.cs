@@ -30,14 +30,14 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditActivity(Guid id, AppUser appUser)
+        public async Task<IActionResult> EditAppUser(Guid id, AppUser appUser)
         {
             appUser.Id = id;
             return Ok(await Mediator.Send(new Edit.Command{AppUser = appUser}));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivity(Guid id)
+        public async Task<IActionResult> DeleteAppUser(Guid id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }

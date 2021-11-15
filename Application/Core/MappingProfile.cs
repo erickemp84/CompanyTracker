@@ -9,6 +9,11 @@ namespace Application.Core
         public MappingProfile()
         {
             CreateMap<AppUser, AppUser>();
+            CreateMap<Billables, Billables>();
+            CreateMap<Crews, Crews>();
+            CreateMap<Customer, Customer>();
+            CreateMap<Job, Job>();
+            CreateMap<Punch, Punch>();
         }
     }
 }

@@ -30,6 +30,13 @@ namespace API.Controllers
         {
             return Ok(await Mediator.Send(new Create.Command {Crews = crews}));
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditCrew(Guid id, Crews crews)
+        {
+            crews.Id = id;
+            return Ok(await Mediator.Send(new Edit.Command{Crews = crews}));
+        }
         
     }
 }
