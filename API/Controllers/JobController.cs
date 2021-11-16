@@ -37,5 +37,11 @@ namespace API.Controllers
             job.Id = id;
             return Ok(await Mediator.Send(new Edit.Command{Job = job}));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteJob(Guid id)
+        {
+            return Ok(await Mediator.Send(new Delete.Command{Id = id}));
+        }
     }
 }

@@ -37,6 +37,12 @@ namespace API.Controllers
             crews.Id = id;
             return Ok(await Mediator.Send(new Edit.Command{Crews = crews}));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCrew(Guid id)
+        {
+            return Ok(await Mediator.Send(new Delete.Command{Id = id}));
+        }
         
     }
 }
