@@ -7,19 +7,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import {Punches} from '../Models/Punches';
+import Button from '@mui/material/Button';
 
 export default function TimecardsTable() {
 
-    const [Punch, setPunches] = useState([]);
+    const [Punch, setPunches] = useState<Punches[]>([]);
 
         useEffect(() => {
-        axios.get("http://localhost:5000/api/Punch").then(response => {
-            console.log(response)
+        axios.get<Punches[]>("http://localhost:5000/api/Punch").then(response => {
             setPunches(response.data)
             })
     }, [])
 
     return(
+        <>
         <TableContainer component={Paper} sx={{width: 800}}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -32,15 +34,15 @@ export default function TimecardsTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {Punch.map((Punch: any) => (
+                    {Punch.map( Punch => (
                         <TableRow
-                            key={Punch.Id}
+                            key={Punch.id}
                             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
                                 {Punch.id}
                             </TableCell>
-                            <TableCell align="right">{Punch.Id}</TableCell>
+                            <TableCell align="right">{Punch.id}</TableCell>
                             <TableCell align="right">{Punch.clockIn}</TableCell>
                             <TableCell align="right">{Punch.clockOut}</TableCell>
                             <TableCell align="right">{Punch.clockInLongLat}</TableCell>
@@ -50,6 +52,8 @@ export default function TimecardsTable() {
                 </TableBody>
             </Table>
         </TableContainer>
+        <Button variant="contained">Add Punch</Button>
+        </>
 
     
     );

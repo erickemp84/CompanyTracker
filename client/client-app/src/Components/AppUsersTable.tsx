@@ -8,19 +8,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import {AppUser} from '../Models/AppUser';
+import Button from '@mui/material/Button';
 
 export default function BasicTable() {
 
-    const [AppUsers, setAppUsers] = useState([]);
+    const [AppUsers, setAppUsers] = useState<AppUser[]>([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/AppUser").then(response => {
-            console.log(response)
+        axios.get<AppUser[]>("http://localhost:5000/api/AppUser").then(response => {
             setAppUsers(response.data)
             })
     }, [])
 
     return (
+        <>
         <TableContainer component={Paper} sx={{width: 800}}>
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
@@ -32,7 +34,7 @@ export default function BasicTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {AppUsers.map((AppUser: any) => (
+                    {AppUsers.map( AppUser => (
                         <TableRow
                             key={AppUser.id}
                             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -42,11 +44,13 @@ export default function BasicTable() {
                             </TableCell>
                             <TableCell align="right">{AppUser.lastName}</TableCell>
                             <TableCell align="right">{AppUser.email}</TableCell>
-                            <TableCell align="right">{AppUser.crew}</TableCell>
+                            {/* <TableCell align="right">{AppUser.crew}</TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
         </TableContainer>
+        <Button variant="contained">Add App User</Button>
+        </>
     );
 }

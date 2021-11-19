@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Domain;
 
 namespace Domain
 {
@@ -19,8 +20,9 @@ namespace Domain
 
         public ICollection<Billables> Billables {get; set;}
 
-        public ICollection<AppUser> AppUser {get; set;}
+        public AppUser FirstName {get; set;}
 
-        public ICollection<Job> Job {get; set;}
+        public AppUser LastName {get; set;}
+
     }
 }

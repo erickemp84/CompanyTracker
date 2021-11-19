@@ -7,19 +7,22 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import {Customers} from '../Models/Customers';
+import Button from '@mui/material/Button';
+
 
 export default function CustomerTable() {
 
-    const[Customer, setCustomers] = useState([]);
+    const[Customer, setCustomers] = useState<Customers[]>([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/Customer").then(response => {
-            console.log(response)
+        axios.get<Customers[]>("http://localhost:5000/api/Customer").then(response => {
             setCustomers(response.data)
             })
     }, [])
 
     return(
+        <>
         <TableContainer component={Paper} sx={{width: 800}}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -29,7 +32,7 @@ export default function CustomerTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {Customer.map((Customer: any) => (
+                    {Customer.map(Customer => (
                         <TableRow
                             key={Customer.id}
                             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -43,6 +46,8 @@ export default function CustomerTable() {
                 </TableBody>
             </Table>
         </TableContainer>
+        <Button variant="contained">Add Customer</Button>
+        </>
         
 
     );

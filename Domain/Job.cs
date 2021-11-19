@@ -12,5 +12,6 @@ namespace Domain
         public string Location {get; set;}
 
         public string Customer {get; set;}
+        
     }
 }
