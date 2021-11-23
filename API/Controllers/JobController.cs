@@ -25,7 +25,7 @@ namespace API.Controllers
             return await Mediator.Send(new Details.Query{Id = id});
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         public async Task<IActionResult> CreateJob (Job job)
         {
             return Ok(await Mediator.Send(new Create.Command {Job = job}));
