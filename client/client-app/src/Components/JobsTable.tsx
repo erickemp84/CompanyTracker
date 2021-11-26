@@ -14,7 +14,6 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { UnaryExpression } from "typescript";
 
 //styling used for modals
 const style = {
@@ -33,25 +32,41 @@ export default function BasicTable() {
 
     //gets data from the database
     const [Jobs, setJobs] = useState<Jobs[]>([]);
-    const [selectedJob, setSelectedJob] = useState<Jobs>();
 
     useEffect(() => {
-        axios.get<Jobs[]>("http://localhost:5000/api/Job").then(response => {
-            setJobs(response.data)
-        })
+        axios.get<Jobs[]>("http://localhost:5000/api/Job")
+            .then(response => {setJobs(response.data);})
     }, [])
 
-    const addJob = () => {
-        e.preventDefault();
-        setJobs(e.target.value);
+    //adds a new Job to database
+    function handleSubmit(){
+        console.log(Jobs);
     }
 
-    const handleAddJob = () => {
-        
+    function handleInputChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
+        const {name, value} = event.target;
+        setJobs({...Jobs, [name]: value})
     }
+    
+    // const addJob = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     e.preventDefault();
+    //     axios.post('http://localhost:5000/api/Job', {
+    //         name: "",
+    //         location: "",
+    //         customer: ""
+    //     })
+    //         .then(response => {setJobs(response.data)};){
+    //             console.log(response.data);
+    //         }
+    // }
+
+    
 
     //modal functionality
     const [open, setOpen] = React.useState(false);
+
+    const [selectedJob, setSelectedJob] = useState<Jobs>();
+
     const handleOpen = (id:any) => {
 
         let job = Jobs.find(job => job.id === id.target.id);
@@ -105,12 +120,33 @@ export default function BasicTable() {
                 sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
                 noValidate
                 autoComplete="off"
-                onChange={() = handleAddJob}
+                onSubmit={handleSubmit}
                 >
-                    <TextField id="outlined-basic" name="Description" label="Description" variant="outlined"/>
-                    <TextField id="outlined-basic" name="Location" label="Location" variant="outlined"/>
-                    <TextField id="outlined-basic" name="Customer" label="Customer" variant="outlined"/>
-                    <Button variant="contained" sx={{ mt: 4 }} onClick={(e) => addJob}>Add Job</Button>
+                    <TextField 
+                        id="outlined-basic" 
+                        name="description"
+                        value={Jobs.name}
+                        label="Description" 
+                        variant="outlined"
+                        onChange={handleInputChange}
+                    />
+                    <TextField 
+                        id="outlined-basic" 
+                        name="location" 
+                        value={Jobs.location}
+                        label="Location"
+                        variant="outlined"
+                        onChange={handleInputChange}
+                    />
+                    <TextField 
+                        id="outlined-basic" 
+                        name="customer" 
+                        value={Jobs.customer}
+                        label="Customer" 
+                        variant="outlined"
+                        onChange={handleInputChange}
+                    />
+                    <Button variant="contained" sx={{ mt: 4 }} onClick={() => handleSubmit()}>Add Job</Button>
             </Box>
             {selectedJob &&  <Modal
                                 open={open}
